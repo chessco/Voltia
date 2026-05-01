@@ -18,6 +18,7 @@ import { Inventory } from './apps/admin/pages/Inventory';
 import { Orders } from './apps/admin/pages/Orders';
 import { Quotations } from './apps/admin/pages/Quotations';
 import { Settings } from './apps/admin/pages/Settings';
+import { AdminProducts } from './apps/admin/pages/AdminProducts';
 
 // Shared Pages
 import { Login } from './shared/pages/Login';
@@ -25,9 +26,21 @@ import { Register } from './shared/pages/Register';
 
 import { useAuthStore } from './shared/store/authStore';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+const ProtectedRoute = ({ 
+  children, 
+  allowedRoles 
+}: { 
+  children: React.ReactNode;
+  allowedRoles?: string[];
+}) => {
+  const { isAuthenticated, user } = useAuthStore();
+  
   if (!isAuthenticated) return <Navigate to="/login" replace />;
+  
+  if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/" replace />;
+  }
+  
   return <>{children}</>;
 };
 
@@ -56,13 +69,14 @@ export default function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={['ADMIN', 'SUPERADMIN']}>
               <AdminLayout />
             </ProtectedRoute>
           }
         >
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="products" element={<AdminProducts />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="orders" element={<Orders />} />
           <Route path="quotations" element={<Quotations />} />

@@ -20,8 +20,12 @@ export const Login = () => {
     login(
       { email, pass: password },
       {
-        onSuccess: () => {
-          navigate('/admin/dashboard');
+        onSuccess: (data: any) => {
+          if (data.user.role === 'ADMIN' || data.user.role === 'SUPERADMIN') {
+            navigate('/admin/dashboard');
+          } else {
+            navigate('/');
+          }
         },
       }
     );

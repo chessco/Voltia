@@ -18,6 +18,8 @@
     "featuredProject": "Proyecto Destacado",
     "capacity": "Capacidad",
     "uptime": "Tiempo de actividad",
+    "throughput": "Rendimiento",
+    "edgeLocations": "Ubicaciones Edge",
     "dashboard": "Panel de Control",
     "inventory": "Inventario",
     "quotations": "Cotizaciones",
@@ -48,7 +50,10 @@
     "comingSoon": "Próximamente...",
     "back": "Atrás",
     "continue": "Continuar",
-    "orContinueWith": "O continuar con"
+    "orContinueWith": "O continuar con",
+    "success": "Éxito",
+    "error": "Error",
+    "confirmDelete": "¿Está seguro de eliminar este elemento?"
   },
   "sidebar": {
     "dashboard": "Panel de Control",
@@ -90,7 +95,27 @@
     "ctaTitle": "¿Listo para construir el futuro?",
     "ctaDesc": "Nuestro equipo técnico está listo para ofrecerte especificaciones detalladas y precios para tus necesidades específicas de infraestructura. Comencemos tu proyecto hoy.",
     "ctaQuoteButton": "Generar solicitud de cotización",
-    "ctaCatalogButton": "PDF Catálogo Completo"
+    "ctaCatalogButton": "PDF Catálogo Completo",
+    "infrastructure": {
+      "title": "Infraestructura con Auto-Escalado",
+      "desc": "Asignación predictiva de recursos que responde a los patrones de tráfico global antes de que la latencia afecte a sus usuarios."
+    },
+    "authority": {
+      "title": "Autoridad Cuantificable",
+      "desc": "Nuestro panel proporciona una visión quirúrgica de sus operaciones. El diseño minimalista oculta una profunda complejidad, permitiéndole centrarse en los números que importan.",
+      "instantFailover": {
+        "title": "Recuperación Instantánea",
+        "desc": "Conmutación en menos de 150ms para servicios críticos."
+      },
+      "predictiveAnalysis": {
+        "title": "Análisis Predictivo",
+        "desc": "Previsión impulsada por IA para la planificación de la capacidad."
+      },
+      "liveThroughput": "Rendimiento de Red en Vivo",
+      "live": "EN VIVO",
+      "systemStatus": "Estado del Sistema",
+      "operational": "Operativo"
+    }
   },
   "dashboard": {
     "title": "Centro de Mando Técnico",
@@ -150,6 +175,9 @@
     "fetching": "Obteniendo Catálogo...",
     "error": "Error al conectar con la base de datos de productos.",
     "lowStock": "Stock Bajo",
+    "management": "Gestión de Catálogo operativos",
+    "deletedSuccess": "Producto eliminado del sistema con éxito",
+    "deleteError": "No se pudo eliminar el producto",
     "reviews": "({{count}} Reseñas)",
     "price": "Precio",
     "sortBy": "Ordenar por",
@@ -297,7 +325,36 @@
     "columns": {
       "pending": "Pedidos Pendientes",
       "review": "En Revisión",
-      "completed": "Completados Hoy"
+      "completed": "Completados"
+    },
+    "table": {
+      "id": "ID Pedido",
+      "customer": "Cliente",
+      "amount": "Monto Total",
+      "status": "Estado",
+      "date": "Fecha",
+      "actions": "Acciones",
+      "confirmDelete": "¿Está seguro de eliminar este elemento?",
+      "cancel": "Cancelar"
+    },
+    "statuses": {
+      "PENDING": "Pendiente",
+      "PROCESSING": "Procesando",
+      "SHIPPED": "Enviado",
+      "DELIVERED": "Entregado",
+      "CANCELLED": "Cancelado"
+    },
+    "modal": {
+      "title": "Nuevo Pedido Operativo",
+      "errorNoUser": "Seleccione un cliente",
+      "errorNoItems": "Añada al menos un producto",
+      "success": "Pedido creado correctamente",
+      "errorSave": "Error al crear el pedido",
+      "selectUser": "Cliente Final",
+      "chooseUser": "Seleccionar un cliente...",
+      "addProduct": "Buscador de Activos",
+      "searchPlaceholder": "Buscar por nombre o SKU...",
+      "create": "Confirmar Pedido"
     },
     "priority": "Prioridad {{level}}",
     "priorities": {
@@ -313,7 +370,12 @@
   "settings": {
     "subtitle": "Gestione sus preferencias y configuración de cuenta.",
     "language": "Idioma del Sistema",
-    "languageDesc": "Seleccione el idioma preferido para la interfaz."
+    "languageDesc": "Seleccione el idioma preferido para la interfaz.",
+    "visualPreferences": "Preferencias Visuales",
+    "viewType": "Modo de Visualización",
+    "viewTypeDesc": "Elija cómo prefiere ver las listas de elementos en el panel.",
+    "viewTable": "Tabla",
+    "viewKanban": "Kanban"
   },
   "footer": {
     "desc": "Excelencia técnica como servicio. Proporcionando soluciones de infraestructura eléctrica de alto rendimiento a nivel mundial.",

@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Settings as SettingsIcon, Globe, Bell, Shield, User } from 'lucide-react';
 import { LanguageSwitcher } from '../../../shared/components/LanguageSwitcher';
+import { useUIStore } from '../../../shared/store/uiStore';
+import { cn } from '../../../shared/lib/utils';
 
 export const Settings = () => {
   const { t } = useTranslation();
@@ -36,6 +38,49 @@ export const Settings = () => {
           <p className="text-sm text-gray-400 font-medium">
             {t('common.comingSoon', 'Próximamente...')}
           </p>
+        </div>
+      )
+    },
+    {
+      id: 'visual',
+      title: t('settings.visualPreferences', 'Preferencias Visuales'),
+      icon: Globe,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between p-6 bg-gray-50 rounded-2xl border border-gray-100">
+            <div>
+              <p className="text-sm font-bold text-gray-900 uppercase tracking-tight italic">
+                {t('settings.viewType', 'Modo de Visualización')}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                {t('settings.viewTypeDesc', 'Elija cómo prefiere ver las listas de elementos en el panel.')}
+              </p>
+            </div>
+            <div className="flex bg-white p-1 rounded-xl border border-gray-200">
+              <button 
+                onClick={() => useUIStore.getState().setAdminViewType('table')}
+                className={cn(
+                  "px-4 py-2 rounded-lg text-xs font-bold transition-all",
+                  useUIStore((state) => state.adminViewType) === 'table' 
+                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20" 
+                    : "text-gray-500 hover:bg-gray-50"
+                )}
+              >
+                {t('settings.viewTable', 'Tabla')}
+              </button>
+              <button 
+                onClick={() => useUIStore.getState().setAdminViewType('kanban')}
+                className={cn(
+                  "px-4 py-2 rounded-lg text-xs font-bold transition-all",
+                  useUIStore((state) => state.adminViewType) === 'kanban' 
+                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20" 
+                    : "text-gray-500 hover:bg-gray-50"
+                )}
+              >
+                {t('settings.viewKanban', 'Kanban')}
+              </button>
+            </div>
+          </div>
         </div>
       )
     }

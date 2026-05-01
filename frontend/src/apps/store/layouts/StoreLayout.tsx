@@ -3,10 +3,14 @@ import { Zap, Globe, Share2, ShoppingCart } from 'lucide-react';
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCartStore } from '../../../shared/store/cartStore';
+import { useAuthStore } from '../../../shared/store/authStore';
+import { User, LogOut, LayoutDashboard } from 'lucide-react';
 
 export const StoreLayout = () => {
   const { t } = useTranslation();
   const cartItemsCount = useCartStore((state) => state.items.length);
+  const { isAuthenticated, user, logout } = useAuthStore();
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPERADMIN';
 
   return (
     <div className="bg-background text-on-surface font-sans selection:bg-brand-600/20 selection:text-brand-600">
@@ -51,24 +55,59 @@ export const StoreLayout = () => {
                 </span>
               )}
             </Link>
-            <Link 
-              to="/login" 
-              className="hidden sm:block text-sm font-bold text-slate-500 hover:text-brand-600 transition-colors uppercase tracking-widest"
-            >
-              {t('common.clientPortal')}
-            </Link>
-            <Link 
-              to="/admin/dashboard" 
-              className="hidden sm:block text-sm font-bold text-brand-900 hover:text-brand-600 transition-colors"
-            >
-              {t('common.adminAccess', 'Admin')}
-            </Link>
-            <Link 
-              to="/admin/dashboard"
-              className="px-5 py-2.5 bg-brand-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-600/20 hover:scale-[0.98] transition-all"
-            >
-              {t('common.getStarted')}
-            </Link>
+            {!isAuthenticated ? (
+              <>
+                <Link 
+                  to="/login" 
+                  className="hidden sm:block text-sm font-bold text-slate-500 hover:text-brand-600 transition-colors uppercase tracking-widest"
+                >
+                  {t('common.clientPortal')}
+                </Link>
+                <Link 
+                  to="/login" 
+                  className="hidden sm:block text-sm font-bold text-brand-900 hover:text-brand-600 transition-colors"
+                >
+                  {t('common.adminAccess', 'Admin')}
+                </Link>
+                <Link 
+                  to="/login"
+                  className="px-5 py-2.5 bg-brand-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-600/20 hover:scale-[0.98] transition-all"
+                >
+                  {t('common.getStarted')}
+                </Link>
+              </>
+            ) : (
+              <div className="flex items-center gap-4">
+                <div className="flex flex-col items-end hidden md:flex">
+                  <span className="text-xs font-bold text-brand-900">{user?.firstName} {user?.lastName}</span>
+                  <span className="text-[10px] font-medium text-outline uppercase tracking-wider">{user?.role}</span>
+                </div>
+                {isAdmin ? (
+                  <Link 
+                    to="/admin/dashboard" 
+                    className="p-2 bg-brand-600/5 text-brand-600 rounded-lg hover:bg-brand-600 hover:text-white transition-all shadow-sm"
+                    title={t('sidebar.dashboard')}
+                  >
+                    <LayoutDashboard size={20} />
+                  </Link>
+                ) : (
+                  <Link 
+                    to="/cart" 
+                    className="p-2 bg-brand-600/5 text-brand-600 rounded-lg hover:bg-brand-600 hover:text-white transition-all shadow-sm"
+                    title={t('common.myAccount')}
+                  >
+                    <User size={20} />
+                  </Link>
+                )}
+                <button 
+                  onClick={logout}
+                  className="p-2 bg-rose-50 text-rose-600 rounded-full hover:bg-rose-600 hover:text-white transition-all shadow-sm"
+                  title={t('common.logout')}
+                >
+                  <LogOut size={18} />
+                </button>
+              </div>
+            )}
           </div>
         </nav>
       </header>
@@ -101,9 +140,21 @@ export const StoreLayout = () => {
             </div>
             
             {[
-              { title: t('common.solutions'), items: ['industrial', 'commercial', 'residential', 'monitoring', 'protection'] },
-              { title: t('common.resources'), items: ['docs', 'caseStudies', 'standards', 'support', 'api'] },
-              { title: t('common.contact'), items: ['contact@voltia.tech', '+1 (555) 123-4567'] }
+              { 
+                title: t('common.solutions'), 
+                items: ['industrial', 'commercial', 'residential', 'monitoring', 'protection'],
+                prefix: 'footer.solutions'
+              },
+              { 
+                title: t('common.resources'), 
+                items: ['docs', 'caseStudies', 'standards', 'support', 'api'],
+                prefix: 'footer.resources'
+              },
+              { 
+                title: t('common.contact'), 
+                items: ['contact@voltia.tech', '+1 (555) 123-4567'],
+                prefix: null
+              }
             ].map((col, i) => (
               <div key={i} className="space-y-8">
                 <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface">{col.title}</h4>
@@ -111,7 +162,7 @@ export const StoreLayout = () => {
                   {col.items.map((item) => (
                     <li key={item}>
                       <a href="#" className="text-sm font-semibold text-outline hover:text-brand-600 transition-colors">
-                        {item.includes('@') || item.includes('+') ? item : t(`footer.solutions.${item}`) || t(`footer.resources.${item}`)}
+                        {!col.prefix ? item : t(`${col.prefix}.${item}`)}
                       </a>
                     </li>
                   ))}
@@ -130,9 +181,11 @@ export const StoreLayout = () => {
                   {t(`common.${item}`)}
                 </a>
               ))}
-              <Link to="/admin/dashboard" className="text-[10px] font-bold text-brand-600 hover:text-brand-900 transition-colors uppercase tracking-widest border-l border-slate-200 pl-8">
-                {t('common.adminAccess', 'Admin Access')}
-              </Link>
+              {isAdmin && (
+                <Link to="/admin/dashboard" className="text-[10px] font-bold text-brand-600 hover:text-brand-900 transition-colors uppercase tracking-widest border-l border-slate-200 pl-8">
+                  {t('common.adminAccess', 'Admin Access')}
+                </Link>
+              )}
             </div>
           </div>
         </div>

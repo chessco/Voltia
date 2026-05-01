@@ -107,10 +107,11 @@ export class OrdersService {
     await this.findOne(id);
     const tenantId = getTenantId();
 
-    return this.prisma.order.updateMany({
-      where: { id, tenantId },
+    return this.prisma.order.update({
+      where: { id },
       data: {
         userId: updateOrderDto.userId,
+        status: updateOrderDto.status,
       },
     });
   }

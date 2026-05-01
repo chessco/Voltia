@@ -18,6 +18,8 @@
     "featuredProject": "Featured Project",
     "capacity": "Capacity",
     "uptime": "Uptime",
+    "throughput": "Throughput",
+    "edgeLocations": "Edge Locations",
     "dashboard": "Dashboard",
     "inventory": "Inventory",
     "quotations": "Quotations",
@@ -90,7 +92,27 @@
     "ctaTitle": "Ready to build the future?",
     "ctaDesc": "Our technical team is ready to provide detailed specs and pricing for your specific infrastructure needs. Let's start your project today.",
     "ctaQuoteButton": "Generate Quote Request",
-    "ctaCatalogButton": "Full Catalog PDF"
+    "ctaCatalogButton": "Full Catalog PDF",
+    "infrastructure": {
+      "title": "Auto-Scaling Infrastructure",
+      "desc": "Predictive resource allocation that responds to global traffic patterns before latency impacts your users."
+    },
+    "authority": {
+      "title": "Quantifiable Authority",
+      "desc": "Our dashboard provides a surgical view of your operations. Minimalist design hides deep complexity, allowing you to focus on the numbers that matter.",
+      "instantFailover": {
+        "title": "Instant Failover",
+        "desc": "Under 150ms switchover for critical services."
+      },
+      "predictiveAnalysis": {
+        "title": "Predictive Analysis",
+        "desc": "AI-driven forecasting for capacity planning."
+      },
+      "liveThroughput": "Live Network Throughput",
+      "live": "LIVE",
+      "systemStatus": "System Status",
+      "operational": "Operational"
+    }
   },
   "dashboard": {
     "title": "Technical Command Center",

@@ -76,8 +76,8 @@ export const Landing = () => {
               {[
                 { label: t('common.uptime'), value: '99.999%' },
                 { label: t('common.capacity'), value: '15.4MW' },
-                { label: 'Throughput', value: '420Tbps' },
-                { label: 'Edge Locations', value: '142' }
+                { label: t('common.throughput'), value: '420Tbps' },
+                { label: t('common.edgeLocations'), value: '142' }
               ].map((stat, i) => (
                 <div key={i} className="flex flex-col gap-2">
                   <span className="text-4xl lg:text-5xl font-bold text-brand-600 tracking-tight">{stat.value}</span>
@@ -161,9 +161,9 @@ export const Landing = () => {
                   <div className="w-16 h-16 bg-brand-600/5 rounded-[20px] flex items-center justify-center text-brand-600">
                     <CloudCog size={32} />
                   </div>
-                  <h3 className="text-3xl font-bold">Auto-Scaling Infrastructure</h3>
+                  <h3 className="text-3xl font-bold">{t('landing.infrastructure.title')}</h3>
                   <p className="text-on-surface-variant text-lg leading-relaxed">
-                    Predictive resource allocation that responds to global traffic patterns before latency impacts your users.
+                    {t('landing.infrastructure.desc')}
                   </p>
                   <button className="flex items-center gap-2 text-sm font-bold text-brand-600 hover:gap-3 transition-all">
                     {t('common.viewMore')}
@@ -187,14 +187,14 @@ export const Landing = () => {
           <div className="absolute inset-0 bg-brand-600/5 mix-blend-overlay"></div>
           <div className="max-w-7xl mx-auto px-6 lg:px-20 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="space-y-10">
-              <h2 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight">Quantifiable Authority</h2>
+              <h2 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight">{t('landing.authority.title')}</h2>
               <p className="text-slate-400 text-xl leading-relaxed max-w-lg">
-                Our dashboard provides a surgical view of your operations. Minimalist design hides deep complexity, allowing you to focus on the numbers that matter.
+                {t('landing.authority.desc')}
               </p>
               <div className="space-y-10 pt-4">
                 {[
-                  { icon: Zap, title: 'Instant Failover', desc: 'Under 150ms switchover for critical services.' },
-                  { icon: LineChart, title: 'Predictive Analysis', desc: 'AI-driven forecasting for capacity planning.' }
+                  { icon: Zap, title: t('landing.authority.instantFailover.title'), desc: t('landing.authority.instantFailover.desc') },
+                  { icon: LineChart, title: t('landing.authority.predictiveAnalysis.title'), desc: t('landing.authority.predictiveAnalysis.desc') }
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-6">
                     <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-brand-600 border border-white/10 group-hover:bg-brand-600 group-hover:text-white transition-all">
@@ -210,10 +210,10 @@ export const Landing = () => {
             </div>
             <div className="bg-[#0D1B2E] p-10 rounded-[48px] shadow-2xl border border-white/10 relative">
                <div className="flex justify-between items-center mb-10">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Live Network Throughput</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">{t('landing.authority.liveThroughput')}</span>
                 <div className="flex gap-1.5 font-mono text-[10px] items-center">
                   <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
-                  <span className="text-brand-600">LIVE</span>
+                  <span className="text-brand-600">{t('landing.authority.live')}</span>
                 </div>
               </div>
               <div className="flex items-end gap-3 h-64 lg:h-80">
@@ -231,8 +231,8 @@ export const Landing = () => {
                   <p className="text-3xl font-bold">12.4 PB/s</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">System Status</p>
-                  <p className="text-3xl font-bold text-[#00FF85]">Operational</p>
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">{t('landing.authority.systemStatus')}</p>
+                  <p className="text-3xl font-bold text-[#00FF85]">{t('landing.authority.operational')}</p>
                 </div>
               </div>
             </div>

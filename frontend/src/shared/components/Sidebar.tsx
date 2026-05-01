@@ -8,24 +8,31 @@ import {
   LogOut, 
   Zap,
   ClipboardList,
-  BarChart3
+  BarChart3,
+  ShoppingCart
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
+
+import { useAuthStore } from '../store/authStore';
 
 export const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+  const { user } = useAuthStore();
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPERADMIN';
 
-  const navItems = [
-    { icon: LayoutDashboard, label: t('sidebar.dashboard'), path: '/admin/dashboard' },
-    { icon: Package, label: t('sidebar.products'), path: '/admin/products' },
-    { icon: ClipboardList, label: t('sidebar.inventory'), path: '/admin/inventory' },
-    { icon: FileText, label: t('sidebar.quotations'), path: '/admin/quotations' },
-    { icon: ShoppingCart, label: t('sidebar.orders'), path: '/admin/orders' },
-    { icon: BarChart3, label: t('sidebar.analytics'), path: '/admin/analytics' },
+  const allNavItems = [
+    { icon: LayoutDashboard, label: t('sidebar.dashboard'), path: '/admin/dashboard', roles: ['ADMIN', 'SUPERADMIN', 'USER'] },
+    { icon: Package, label: t('sidebar.products'), path: '/admin/products', roles: ['ADMIN', 'SUPERADMIN'] },
+    { icon: ClipboardList, label: t('sidebar.inventory'), path: '/admin/inventory', roles: ['ADMIN', 'SUPERADMIN'] },
+    { icon: FileText, label: t('sidebar.quotations'), path: '/admin/quotations', roles: ['ADMIN', 'SUPERADMIN', 'USER'] },
+    { icon: ShoppingCart, label: t('sidebar.orders'), path: '/admin/orders', roles: ['ADMIN', 'SUPERADMIN', 'USER'] },
+    { icon: BarChart3, label: t('sidebar.analytics'), path: '/admin/analytics', roles: ['ADMIN', 'SUPERADMIN'] },
   ];
+
+  const navItems = allNavItems.filter(item => item.roles.includes(user?.role || ''));
 
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
@@ -67,17 +74,17 @@ export const Sidebar = () => {
 
       <div className="p-4 mt-auto border-t border-white/5 space-y-1.5">
         <Link 
-          to="/settings"
+          to="/admin/settings"
           className={cn(
             "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all group/settings",
-            location.pathname === '/settings'
+            location.pathname === '/admin/settings'
               ? "bg-white/10 text-white"
               : "text-slate-400 hover:bg-white/5 hover:text-white"
           )}
         >
           <SettingsIcon size={18} className={cn(
             "transition-colors",
-            location.pathname === '/settings' ? "text-brand-600" : "text-slate-500 group-hover/settings:text-white"
+            location.pathname === '/admin/settings' ? "text-brand-600" : "text-slate-500 group-hover/settings:text-white"
           )} />
           <span>{t('common.settings')}</span>
         </Link>
@@ -92,6 +99,3 @@ export const Sidebar = () => {
     </aside>
   );
 };
-
-// Fixed missing ShoppingCart import from previous snippet
-import { ShoppingCart } from 'lucide-react';

@@ -21,6 +21,7 @@ desktop.ini
 !.env.example
 .secret
 credentials.json
+api/error.txt
 
 # --- Architecture & Build ---
 dist/
